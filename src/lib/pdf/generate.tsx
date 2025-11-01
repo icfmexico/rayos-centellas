@@ -54,7 +54,6 @@ export async function generatePdfBuffer(data: PdfData) {
   const footLogo = lang === "en" ? "en-icf-logo-footer.png" : "es-icf-logo-footer.png";
 
   const headLogoSrc = readPublicBase64(headLogo);
-  const footLogoSrc = readPublicBase64(footLogo);
 
   const title = lang === "en" ? "ICF MEXICO — Pro Calculator" : "ICF MÉXICO — Calculadora Pro";
   const summary = lang === "en" ? "Calculation Summary" : "Resumen del cálculo";
@@ -72,7 +71,7 @@ export async function generatePdfBuffer(data: PdfData) {
       <Page size="A4" style={styles.page}>
         {/* Header */}
         <View style={styles.headerRow}>
-          <Image src={headLogoSrc} style={{ height: 36, width: 160 }} />
+          <Image src={headLogoSrc} style={{ width: 240 }} />
           <View style={styles.titleBox}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.subtitle}>{data.generatedAt ?? new Date().toLocaleString()}</Text>
@@ -99,7 +98,6 @@ export async function generatePdfBuffer(data: PdfData) {
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Image src={footLogoSrc} style={{ height: 20, width: 120 }} />
           <Text style={styles.footText}>{madeBy}</Text>
         </View>
       </Page>
