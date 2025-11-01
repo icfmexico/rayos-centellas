@@ -1,24 +1,33 @@
 "use client";
 import { useState } from "react";
-
-type WallSystem = "ICF-15" | "ICF-20" | "SOLID";
+import { computePro, type WallSystem } from "@/lib/walls/compute";
 
 export default function ProCalculatorsPage() {
+  const [system, setSystem] = useState<WallSystem>("ICF-20");
   const [length, setLength] = useState<string>("");
   const [height, setHeight] = useState<string>("");
-  const [system, setSystem] = useState<WallSystem>("ICF-20");
-  const [result, setResult] = useState<string>("");
+  const [waste, setWaste] = useState<string>("5");
+
+  const [out, setOut] = useState<null | {
+    area_m2: number; blocks_base: number; waste_pct: number; blocks_total: number;
+  }>(null);
 
   function onCalculate(e: React.FormEvent) {
     e.preventDefault();
     const L = Number(length);
     const H = Number(height);
+    const W = Number(waste);
     if (!L || !H) {
-      setResult("Ingresa largo y alto válidos.");
+      setOut(null);
       return;
     }
-    const m2 = L * H; // placeholder — conectaremos lógica real luego
-    setResult(`Área estimada: ${m2.toFixed(2)} m² — Sistema: ${system}`);
+    const res = computePro({
+      system,
+      length_m: L,
+      height_m: H,
+      waste_pct: isNaN(W) ? 0 : W,
+    });
+    setOut(res);
   }
 
   return (
@@ -28,29 +37,7 @@ export default function ProCalculatorsPage() {
         <p className="text-sm text-gray-600 mb-6">Ruta i18n: /[locale]/calculadoras/pro</p>
 
         <div className="grid gap-4 rounded-2xl shadow-lg p-6 border">
-          <form onSubmit={onCalculate} className="grid md:grid-cols-3 gap-4">
-            <label className="grid gap-1">
-              <span className="text-sm">Largo (m)</span>
-              <input
-                value={length}
-                onChange={(e) => setLength(e.target.value)}
-                inputMode="decimal"
-                placeholder="Ej. 12.5"
-                className="border rounded-xl px-3 py-2"
-              />
-            </label>
-
-            <label className="grid gap-1">
-              <span className="text-sm">Alto (m)</span>
-              <input
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
-                inputMode="decimal"
-                placeholder="Ej. 2.8"
-                className="border rounded-xl px-3 py-2"
-              />
-            </label>
-
+          <form onSubmit={onCalculate} className="grid md:grid-cols-4 gap-4">
             <label className="grid gap-1">
               <span className="text-sm">Sistema</span>
               <select
@@ -64,7 +51,40 @@ export default function ProCalculatorsPage() {
               </select>
             </label>
 
-            <div className="md:col-span-3">
+            <label className="grid gap-1">
+              <span className="text-sm">Largo (m)</span>
+              <input
+                value={length}
+                onChange={(e) => setLength(e.target.value)}
+                inputMode="decimal"
+                placeholder="Ej. 10"
+                className="border rounded-xl px-3 py-2"
+              />
+            </label>
+
+            <label className="grid gap-1">
+              <span className="text-sm">Alto (m)</span>
+              <input
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+                inputMode="decimal"
+                placeholder="Ej. 2.7"
+                className="border rounded-xl px-3 py-2"
+              />
+            </label>
+
+            <label className="grid gap-1">
+              <span className="text-sm">Merma (%)</span>
+              <input
+                value={waste}
+                onChange={(e) => setWaste(e.target.value)}
+                inputMode="decimal"
+                placeholder="5"
+                className="border rounded-xl px-3 py-2"
+              />
+            </label>
+
+            <div className="md:col-span-4">
               <button
                 type="submit"
                 className="rounded-2xl px-4 py-2 bg-black text-white hover:opacity-90"
@@ -75,8 +95,17 @@ export default function ProCalculatorsPage() {
           </form>
 
           <div className="rounded-xl bg-gray-50 p-4 border">
-            <h2 className="font-semibold mb-1">Resultado</h2>
-            <p className="text-sm">{result || "—"}</p>
+            <h2 className="font-semibold mb-2">Resultado</h2>
+            {out ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                <div>Área (m²): <b>{out.area_m2.toFixed(2)}</b></div>
+                <div>Bloques base: <b>{out.blocks_base.toFixed(2)}</b></div>
+                <div>Merma (%): <b>{out.waste_pct.toFixed(0)}%</b></div>
+                <div>Bloques totales: <b>{out.blocks_total.toFixed(2)}</b></div>
+              </div>
+            ) : (
+              <p className="text-sm text-gray-600">—</p>
+            )}
           </div>
         </div>
       </section>
