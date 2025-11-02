@@ -2,44 +2,41 @@
 import React, { useMemo, useState } from "react";
 
 export default function StrongTopPdfPreview() {
-  const [peralte] = useState<25>(25); // fijo
   const [fc, setFc] = useState<200 | 250>(200);
   const [area, setArea] = useState<number>(120);
   const [lang, setLang] = useState<"es" | "en">("es");
 
   const url = useMemo(() => {
     const q = new URLSearchParams({
-      peralte: String(peralte), // siempre 25
+      peralte: "25",
       fc: String(fc),
       area: String(area),
       lang,
     });
     return `/api/pdf/strongtop?${q.toString()}`;
-  }, [peralte, fc, area, lang]);
+  }, [fc, area, lang]);
 
   return (
     <div className="min-h-screen bg-white p-6 space-y-4">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-[#0A2A66]">StrongTop PDF — Vista previa</h1>
-          <p className="text-sm text-gray-600">Peralte fijo 25 cm · Bilingüe · Logo FS</p>
+          <p className="text-sm text-gray-600">Peralte fijo 25 cm · Descarga directa</p>
         </div>
-        <a href={url} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-md border px-3 py-2 text-sm hover:bg-gray-50">
-          Abrir como PDF
-        </a>
+        <div className="flex gap-2">
+          <a href={url} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-md border px-3 py-2 text-sm hover:bg-gray-50">
+            Abrir PDF
+          </a>
+          <a href={url + "&dl=1"} className="inline-flex items-center rounded-md border px-3 py-2 text-sm hover:bg-gray-50">
+            Descargar PDF
+          </a>
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <label className="text-sm">
-          <span className="block text-gray-600 mb-1">Peralte (cm)</span>
-          <select className="w-full border rounded-md px-2 py-1" value={peralte} onChange={() => {}} disabled>
-            <option value={25}>25</option>
-          </select>
-        </label>
-
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <label className="text-sm">
           <span className="block text-gray-600 mb-1">Concreto (fc)</span>
-          <select className="w-full border rounded-md px-2 py-1" value={fc} onChange={(e) => setFc(Number(e.target.value) as 200 | 250)}>
+          <select className="w-full border rounded-md px-2 py-1" value={fc} onChange={(e) => setFc(Number(e.target.value) as any)}>
             <option value={200}>200</option>
             <option value={250}>250</option>
           </select>
