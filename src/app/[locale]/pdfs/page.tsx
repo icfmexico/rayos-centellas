@@ -28,8 +28,19 @@ export default function PdfHubPage() {
 
   return (
     <div className="min-h-screen bg-white p-8">
-      <h1 className="text-2xl font-semibold text-[#0A2A66] mb-2">ICF MÉXICO — PDFs</h1>
-      <p className="text-sm text-gray-600 mb-6">Branding OMEGA · Previews y descargas</p>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-semibold text-[#0A2A66] mb-1">ICF MÉXICO — PDFs</h1>
+          <p className="text-sm text-gray-600">Branding OMEGA · Previews y descargas</p>
+        </div>
+        <a
+          href="/api/pdf/bundle"
+          className="inline-flex items-center gap-2 rounded-md border border-[#0A2A66] px-4 py-2 text-sm font-medium text-[#0A2A66] hover:bg-[#0A2A66] hover:text-white transition"
+        >
+          <span>Descargar todo (ZIP)</span>
+          <span>⬇️</span>
+        </a>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {cards.map((c) => (
