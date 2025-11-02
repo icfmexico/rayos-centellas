@@ -1,11 +1,12 @@
 "use client";
 import React, { useMemo, useState } from "react";
+import Link from "next/link";
 
 export default function MakrosPdfPreview() {
-  const [peralte, setPeralte] = useState<18 | 20 | 25 | 29 | 32>(25);
   const [fc, setFc] = useState<200 | 250>(200);
-  const [area, setArea] = useState<number>(340);
+  const [area, setArea] = useState<number>(100);
   const [lang, setLang] = useState<"es" | "en">("es");
+  const [peralte, setPeralte] = useState<18 | 20 | 25 | 29 | 32>(25);
 
   const url = useMemo(() => {
     const q = new URLSearchParams({
@@ -22,63 +23,44 @@ export default function MakrosPdfPreview() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-[#0A2A66]">Makros PDF — Vista previa</h1>
-          <p className="text-sm text-gray-600">Bilingüe · Logo FS · Descarga directa</p>
+          <p className="text-sm text-gray-600">Carta horizontal · Footer limpio · Branding OMEGA</p>
         </div>
-        <div className="flex gap-2">
-          <a href={url} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-md border px-3 py-2 text-sm hover:bg-gray-50">
-            Abrir PDF
-          </a>
-          <a href={url + "&dl=1"} className="inline-flex items-center rounded-md border px-3 py-2 text-sm hover:bg-gray-50">
-            Descargar PDF
-          </a>
+        <div className="flex items-center gap-2">
+          <Link href="/es/pdfs" className="inline-flex items-center rounded-md border px-3 py-2 text-sm hover:bg-gray-50">← Volver al HUB</Link>
+          <a href={url} target="_blank" className="inline-flex items-center rounded-md border px-3 py-2 text-sm hover:bg-gray-50">Abrir PDF</a>
+          <a href={url + "&dl=1"} className="inline-flex items-center rounded-md border px-3 py-2 text-sm hover:bg-gray-50">Descargar PDF</a>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <label className="text-sm">
-          <span className="block text-gray-600 mb-1">Peralte (cm)</span>
-          <select className="w-full border rounded-md px-2 py-1" value={peralte} onChange={(e) => setPeralte(Number(e.target.value) as any)}>
-            <option value={18}>18</option>
-            <option value={20}>20</option>
-            <option value={25}>25</option>
-            <option value={29}>29</option>
-            <option value={32}>32</option>
+      <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+        <label className="text-sm"><span className="block text-gray-600 mb-1">Peralte</span>
+          <select className="w-full border rounded-md px-2 py-1" value={peralte} onChange={e => setPeralte(Number(e.target.value) as any)}>
+            {[18,20,25,29,32].map(p=><option key={p} value={p}>{p} cm</option>)}
           </select>
         </label>
-
-        <label className="text-sm">
-          <span className="block text-gray-600 mb-1">Concreto (fc)</span>
-          <select className="w-full border rounded-md px-2 py-1" value={fc} onChange={(e) => setFc(Number(e.target.value) as any)}>
-            <option value={200}>200</option>
-            <option value={250}>250</option>
+        <label className="text-sm"><span className="block text-gray-600 mb-1">Concreto (fc)</span>
+          <select className="w-full border rounded-md px-2 py-1" value={fc} onChange={e => setFc(Number(e.target.value) as any)}>
+            <option value={200}>200</option><option value={250}>250</option>
           </select>
         </label>
-
-        <label className="text-sm">
-          <span className="block text-gray-600 mb-1">Área (m²)</span>
-          <input type="number" min={1} className="w-full border rounded-md px-2 py-1" value={area} onChange={(e) => setArea(Math.max(1, Number(e.target.value) || 0))} />
+        <label className="text-sm"><span className="block text-gray-600 mb-1">Área (m²)</span>
+          <input type="number" min={1} step={1} className="w-full border rounded-md px-2 py-1" value={area} onChange={e=>setArea(Math.max(1, Number(e.target.value)||1))}/>
         </label>
-
-        <div className="text-sm">
-          <span className="block text-gray-600 mb-1">Idioma</span>
+        <div className="text-sm"><span className="block text-gray-600 mb-1">Idioma</span>
           <div className="flex gap-2">
-            <button className={`px-3 py-1 rounded-md border ${lang === "es" ? "bg-gray-100" : "hover:bg-gray-50"}`} onClick={() => setLang("es")}>ES</button>
-            <button className={`px-3 py-1 rounded-md border ${lang === "en" ? "bg-gray-100" : "hover:bg-gray-50"}`} onClick={() => setLang("en")}>EN</button>
+            <button onClick={()=>setLang("es")} className={`border rounded-md px-3 py-1 text-sm ${lang==="es"?"bg-gray-100":""}`}>ES</button>
+            <button onClick={()=>setLang("en")} className={`border rounded-md px-3 py-1 text-sm ${lang==="en"?"bg-gray-100":""}`}>EN</button>
           </div>
         </div>
-
-        <div className="text-sm">
+        <div className="text-sm md:col-span-2">
           <span className="block text-gray-600 mb-1">URL actual</span>
-          <input readOnly className="w-full border rounded-md px-2 py-1 text-xs" value={url} />
+          <input readOnly className="w-full border rounded-md px-2 py-1 text-xs" value={url}/>
         </div>
       </div>
 
       <div className="border rounded-lg overflow-hidden shadow-sm">
-        <object data={url} type="application/pdf" className="w-full" style={{ height: "75vh" }}>
-          <p className="p-4">
-            Tu navegador no pudo mostrar el PDF.
-            <a className="text-blue-600 underline" href={url} target="_blank" rel="noreferrer"> Ábrelo en una pestaña nueva</a>.
-          </p>
+        <object data={url} type="application/pdf" className="w-full" style={{height:"75vh"}}>
+          <p className="p-4">Tu navegador no pudo mostrar el PDF. <a className="text-blue-600 underline" href={url} target="_blank">Ábrelo aquí</a>.</p>
         </object>
       </div>
     </div>
