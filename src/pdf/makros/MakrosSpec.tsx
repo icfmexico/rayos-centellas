@@ -3,19 +3,10 @@ import { Document, Page, Text, View, StyleSheet, Image } from "@react-pdf/render
 import { brand, docMeta } from "./theme";
 import { t, type Lang } from "./i18n";
 
-// Tabla oficial m³/m² por peralte
-const FACTOR_CONCRETO_M3_POR_M2: Record<number, number> = {
-  18: 0.083,
-  20: 0.091,
-  25: 0.103,
-  29: 0.114,
-  32: 0.121,
-};
-
 const styles = StyleSheet.create({
   page: { flexDirection: "column", paddingTop: 24, paddingBottom: 20, paddingHorizontal: 28, backgroundColor: brand.colors.bg },
   headerRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderBottom: `1 solid ${brand.colors.border}`, paddingBottom: 8, marginBottom: 10 },
-  logo: { width: 120, height: 28, objectFit: "contain" },
+  logo: { width: 180, height: 40, objectFit: "contain" },
   titleBlock: { textAlign: "right" },
   title: { fontSize: 20, color: brand.colors.primary, fontWeight: 700 },
   subtitle: { fontSize: 10, color: brand.colors.soft, marginTop: 2 },
@@ -24,7 +15,7 @@ const styles = StyleSheet.create({
   p: { fontSize: 9, color: brand.colors.text, lineHeight: 1.35 },
   grid2: { flexDirection: "row", gap: 12 },
   col: { flex: 1 },
-  card: { border: `1 solid ${brand.colors.border}`, borderRadius: 6, padding: 8, gap: 6 },
+  card: { border: `1 solid ${brand.colors.border}`, borderRadius: 8, padding: 10, gap: 6 },
   row: { flexDirection: "row", justifyContent: "space-between", marginBottom: 4 },
   label: { fontSize: 9, color: brand.colors.soft },
   value: { fontSize: 9, color: brand.colors.text, fontWeight: 700 },
@@ -37,27 +28,32 @@ const styles = StyleSheet.create({
 });
 
 type MakrosInput = { peralte_cm?: 18 | 20 | 25 | 29 | 32; concreto_fc?: 200 | 250; area_m2?: number; };
-const defaultInput: Required<MakrosInput> = { peralte_cm: 27 as any, concreto_fc: 200, area_m2: 100 }; // 27 no existe en tabla, se normaliza abajo
+const defaultInput: Required<MakrosInput> = { peralte_cm: 27 as any, concreto_fc: 200, area_m2: 100 };
 
 export function MakrosSpecPDF(props: { input?: MakrosInput; logoData?: Uint8Array; lang?: Lang }) {
   const lang = props.lang || "es";
   const txt = t(lang);
   const i = { ...defaultInput, ...(props.input || {}) };
 
-  // Normalizar peralte a uno de la tabla (si llega 27/30/32 desde UI, ajusta al más cercano válido)
   const posibles = [18, 20, 25, 29, 32];
   const peralte = posibles.reduce((prev, curr) =>
     Math.abs((i.peralte_cm as number) - curr) < Math.abs((i.peralte_cm as number) - prev) ? curr : prev
   , posibles[0]);
-  const factor = FACTOR_CONCRETO_M3_POR_M2[peralte] ?? 0.103; // default 25 cm
 
+  const FACTOR_CONCRETO_M3_POR_M2: Record<number, number> = {
+    18: 0.083,
+    20: 0.091,
+    25: 0.103,
+    29: 0.114,
+    32: 0.121,
+  };
+  const factor = FACTOR_CONCRETO_M3_POR_M2[peralte] ?? 0.103;
   const concreto_m3 = +(factor * i.area_m2).toFixed(2);
-  const acero_kg = +(10 * i.area_m2).toFixed(1); // si luego defines kg/m² oficiales por peralte, aquí se conectan
+  const acero_kg = +(10 * i.area_m2).toFixed(1);
 
   return (
     <Document title={docMeta.title} author={docMeta.author} subject="Makros — Ficha técnica">
       <Page size="LETTER" orientation="landscape" style={styles.page}>
-        {/* Header */}
         <View style={styles.headerRow}>
           {props.logoData ? <Image src={{ data: props.logoData, format: "png" }} style={styles.logo} /> : <View />}
           <View style={styles.titleBlock}>
@@ -66,14 +62,12 @@ export function MakrosSpecPDF(props: { input?: MakrosInput; logoData?: Uint8Arra
           </View>
         </View>
 
-        {/* Intro */}
         <View style={[styles.section, styles.card]}>
           <Text style={styles.p}>
             <Text style={{ fontWeight: 700 }}>{txt.intro1A}</Text> {txt.intro1B} {txt.intro1C} {peralte} {txt.cm} {txt.intro1D}
           </Text>
         </View>
 
-        {/* Datos rápidos */}
         <View style={[styles.section, styles.grid2]}>
           <View style={[styles.col, styles.card]}>
             <Text style={styles.pill}>{txt.specsQuick}</Text>
@@ -89,7 +83,6 @@ export function MakrosSpecPDF(props: { input?: MakrosInput; logoData?: Uint8Arra
           </View>
         </View>
 
-        {/* Tabla peraltes oficiales */}
         <View style={[styles.section]}>
           <Text style={styles.h2}>{txt.variantes}</Text>
           <View style={styles.table}>
@@ -112,7 +105,6 @@ export function MakrosSpecPDF(props: { input?: MakrosInput; logoData?: Uint8Arra
           </View>
         </View>
 
-        {/* Footer */}
         <View style={styles.footer}>
           <Text>{txt.footer(new Date().getFullYear())}</Text>
         </View>
