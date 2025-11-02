@@ -7,6 +7,10 @@ import { MakrosSpecPDF } from "@/pdf/makros/MakrosSpec";
 import { JoistSpecPDF } from "@/pdf/joist/JoistSpec";
 import { StrongTopSpecPDF } from "@/pdf/strongtop/StrongTopSpec";
 import { WallsSpecPDF } from "@/pdf/walls/WallsSpec";
+import { finished } from "node:stream/promises";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   const outputDir = path.join(process.cwd(), "public", "pdf");
@@ -20,48 +24,51 @@ export async function GET() {
     logoData = undefined;
   }
 
-  // Render PDFs individualmente
+  // Render PDFs individuales (parámetros demo; ajusta si quieres otros defaults)
   const files = [
     {
       name: "ICF-Mexico-Makros.pdf",
-      render: <MakrosSpecPDF input={{ peralte_cm: 25, concreto_fc: 200, area_m2: 100 }} logoData={logoData} lang="es" />,
+      node: <MakrosSpecPDF input={{ peralte_cm: 25, concreto_fc: 200, area_m2: 100 }} logoData={logoData} lang="es" />,
     },
     {
       name: "ICF-Mexico-Joist.pdf",
-      render: <JoistSpecPDF input={{ peralte_cm: 25, concreto_fc: 200, area_m2: 100 }} logoData={logoData} lang="es" />,
+      node: <JoistSpecPDF input={{ peralte_cm: 25, concreto_fc: 200, area_m2: 100 }} logoData={logoData} lang="es" />,
     },
     {
       name: "ICF-Mexico-StrongTop.pdf",
-      render: <StrongTopSpecPDF input={{ peralte_cm: 25, concreto_fc: 200, area_m2: 100 }} logoData={logoData} lang="es" />,
+      node: <StrongTopSpecPDF input={{ peralte_cm: 25, concreto_fc: 200, area_m2: 100 }} logoData={logoData} lang="es" />,
     },
     {
       name: "ICF-Mexico-Muros.pdf",
-      render: <WallsSpecPDF system="ICF-20" length_m={10} height_m={2.7} waste_pct={5} logoData={logoData} />,
+      node: <WallsSpecPDF system="ICF-20" length_m={10} height_m={2.7} waste_pct={5} logoData={logoData} />,
     },
   ];
 
   const generated: string[] = [];
   for (const f of files) {
     const outPath = path.join(outputDir, f.name);
-    await renderToFile(f.render, outPath);
+    await renderToFile(f.node, outPath);
     generated.push(outPath);
   }
 
-  // Crear ZIP en memoria
+  // Construir ZIP en disco y esperar a que termine
   const zipPath = path.join(outputDir, "ICF-Mexico-Bundle.zip");
   const output = fs.createWriteStream(zipPath);
   const archive = archiver("zip", { zlib: { level: 9 } });
-
   archive.pipe(output);
+
   for (const f of generated) {
     archive.file(f, { name: path.basename(f) });
   }
   await archive.finalize();
+  await finished(output); // ← asegura que el ZIP terminó de escribirse
 
-  return new NextResponse(fs.readFileSync(zipPath), {
+  const zipBuffer = fs.readFileSync(zipPath);
+  return new NextResponse(zipBuffer, {
     headers: {
       "Content-Type": "application/zip",
       "Content-Disposition": 'attachment; filename="ICF-Mexico-Bundle.zip"',
+      "Cache-Control": "no-store",
     },
   });
 }
