@@ -1,49 +1,46 @@
 "use client";
+import React from "react";
 import Link from "next/link";
 
-const cards = [
-  {
-    title: "Makros — Entrepisos/Techos",
-    href: "/es/makros-pdf/preview",
-    api: "/api/pdf/makros?peralte=27&fc=200&area=340&lang=es",
-    desc: "PDF bilingüe, logo FS, controles.",
-  },
-  {
-    title: "Joist — Losa con Viguetas",
-    href: "/es/joist-pdf/preview",
-    api: "/api/pdf/joist?peralte=27&fc=200&area=340&lang=es",
-    desc: "Clon con preview y ES/EN.",
-  },
-  {
-    title: "StrongTop — Losa Aislada",
-    href: "/es/strongtop-pdf/preview",
-    api: "/api/pdf/strongtop?peralte=25&fc=200&area=120&lang=es",
-    desc: "Clon con preview y ES/EN.",
-  },
-];
+export default function PdfHubPage() {
+  const cards = [
+    {
+      title: "Makros — Entrepisos y Techos",
+      href: "/es/makros-pdf/preview",
+      desc: "Peraltes 18/20/25/29/32 · Bilingüe · Descargar PDF",
+    },
+    {
+      title: "Joist — Losa con Viguetas (25 cm)",
+      href: "/es/joist-pdf/preview",
+      desc: "Peralte fijo 25 cm · Bilingüe · Descargar PDF",
+    },
+    {
+      title: "StrongTop — Losa Aislada (25 cm)",
+      href: "/es/strongtop-pdf/preview",
+      desc: "Peralte fijo 25 cm · Bilingüe · Descargar PDF",
+    },
+    {
+      title: "Muros — Calculadora Pro (ICF-15 / ICF-20 / Sólido)",
+      href: "/es/walls-pdf/preview",
+      desc: "Resumen de bloques · Merma · Descargar PDF",
+    },
+  ];
 
-export default function PdfHub() {
   return (
-    <div className="min-h-screen bg-white p-6">
-      <h1 className="text-2xl font-semibold text-[#0A2A66]">ICF MEXICO — Centro de PDFs</h1>
-      <p className="text-sm text-gray-600 mb-6">
-        Previews con controles y accesos directos a las rutas API (bilingüe).
-      </p>
+    <div className="min-h-screen bg-white p-8">
+      <h1 className="text-2xl font-semibold text-[#0A2A66] mb-2">ICF MÉXICO — PDFs</h1>
+      <p className="text-sm text-gray-600 mb-6">Branding OMEGA · Previews y descargas</p>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {cards.map((c) => (
-          <div key={c.title} className="border rounded-xl p-4 shadow-sm">
-            <h2 className="text-lg font-semibold">{c.title}</h2>
-            <p className="text-xs text-gray-600 mb-3">{c.desc}</p>
-            <div className="flex gap-2">
-              <Link href={c.href} className="text-sm px-3 py-1 border rounded-md hover:bg-gray-50">
-                Abrir preview
-              </Link>
-              <a href={c.api} target="_blank" rel="noreferrer" className="text-sm px-3 py-1 border rounded-md hover:bg-gray-50">
-                Abrir PDF
-              </a>
+          <Link key={c.href} href={c.href} className="border rounded-xl p-5 hover:shadow-sm transition">
+            <h2 className="text-lg font-semibold text-[#0A2A66]">{c.title}</h2>
+            <p className="text-sm text-gray-600 mt-1">{c.desc}</p>
+            <div className="mt-3 text-sm inline-flex items-center gap-2 text-blue-600">
+              <span>Ir al preview</span>
+              <span>↗</span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
