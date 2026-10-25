@@ -1,0 +1,470 @@
+{
+ "productos": [
+  {
+   "id": 1,
+   "sistema": "ICF-15",
+   "nombre": "ICF-15 · Block lineal — local (Juárez/Chihuahua)",
+   "planta": "Juárez",
+   "unidad": "pza",
+   "p1": 90,
+   "p2": 88,
+   "m3": 0.067,
+   "grupo": "ICF-15 · Block lineal — local (Juárez/Chihuahua)",
+   "nombre_en": "ICF-15 · Block straight — local (Juárez/Chihuahua)"
+  },
+  {
+   "id": 2,
+   "sistema": "ICF-15",
+   "nombre": "ICF-15 · Block lineal — fuera de Chihuahua",
+   "planta": "Juárez",
+   "unidad": "pza",
+   "p1": 111,
+   "p2": 101,
+   "m3": 0.067,
+   "grupo": "ICF-15 · Block lineal — fuera de Chihuahua",
+   "nombre_en": "ICF-15 · Block straight — outside Chihuahua"
+  },
+  {
+   "id": 3,
+   "sistema": "ICF-15",
+   "nombre": "ICF-15 · Block esquina",
+   "planta": "Juárez",
+   "unidad": "pza",
+   "p1": 111,
+   "p2": 101,
+   "m3": 0.046,
+   "grupo": "ICF-15 · Block esquina",
+   "nombre_en": "ICF-15 · Block corner"
+  },
+  {
+   "id": 4,
+   "sistema": "ICF-20",
+   "nombre": "ICF-20 · Block 100×30×20 cm",
+   "planta": "Aguascalientes",
+   "unidad": "pza",
+   "p1": 175,
+   "p2": 165,
+   "m3": 0.06,
+   "grupo": "ICF-20 · Block 100×30×20 cm",
+   "nombre_en": "ICF-20 · Block 100×30×20 cm"
+  },
+  {
+   "id": 5,
+   "sistema": "PSE",
+   "nombre": "Block ICF-PSE 4\" lineal",
+   "planta": "Tlaxcala",
+   "unidad": "pza",
+   "p1": 355.38,
+   "p2": 346.92,
+   "m3": 0.071,
+   "grupo": "Block ICF-PSE 4\" lineal",
+   "nombre_en": "Block ICF-PSE 4\" straight"
+  },
+  {
+   "id": 6,
+   "sistema": "PSE",
+   "nombre": "Block ICF-PSE 4\" esquina",
+   "planta": "Tlaxcala",
+   "unidad": "pza",
+   "p1": 283.38,
+   "p2": 274.92,
+   "m3": 0.048,
+   "grupo": "Block ICF-PSE 4\" esquina",
+   "nombre_en": "Block ICF-PSE 4\" corner"
+  },
+  {
+   "id": 7,
+   "sistema": "PSE",
+   "nombre": "Block ICF-PSE 5.5\" lineal",
+   "planta": "Tlaxcala",
+   "unidad": "pza",
+   "p1": 373.38,
+   "p2": 364.92,
+   "m3": 0.071,
+   "grupo": "Block ICF-PSE 5.5\" lineal",
+   "nombre_en": "Block ICF-PSE 5.5\" straight"
+  },
+  {
+   "id": 8,
+   "sistema": "PSE",
+   "nombre": "Block ICF-PSE 5.5\" esquina",
+   "planta": "Tlaxcala",
+   "unidad": "pza",
+   "p1": 292.38,
+   "p2": 283.92,
+   "m3": 0.048,
+   "grupo": "Block ICF-PSE 5.5\" esquina",
+   "nombre_en": "Block ICF-PSE 5.5\" corner"
+  },
+  {
+   "id": 9,
+   "sistema": "PSE",
+   "nombre": "Block ICF-PSE 7.5\" lineal",
+   "planta": "Tlaxcala",
+   "unidad": "pza",
+   "p1": 421.38,
+   "p2": 412.92,
+   "m3": 0.071,
+   "grupo": "Block ICF-PSE 7.5\" lineal",
+   "nombre_en": "Block ICF-PSE 7.5\" straight"
+  },
+  {
+   "id": 10,
+   "sistema": "PSE",
+   "nombre": "Block ICF-PSE 7.5\" esquina",
+   "planta": "Tlaxcala",
+   "unidad": "pza",
+   "p1": 316.38,
+   "p2": 307.92,
+   "m3": 0.048,
+   "grupo": "Block ICF-PSE 7.5\" esquina",
+   "nombre_en": "Block ICF-PSE 7.5\" corner"
+  },
+  {
+   "id": 11,
+   "sistema": "Losa",
+   "nombre": "Losa · Joist H17.5",
+   "planta": "Aguascalientes",
+   "unidad": "ml",
+   "p1": 655,
+   "p2": 628.8,
+   "m3": 0.0175,
+   "grupo": "losa",
+   "nombre_en": "Slab · Joist H17.5"
+  },
+  {
+   "id": 12,
+   "sistema": "Losa",
+   "nombre": "Losa · Joist H27",
+   "planta": "Aguascalientes",
+   "unidad": "ml",
+   "p1": 720,
+   "p2": 691.2,
+   "m3": 0.027,
+   "grupo": "losa",
+   "nombre_en": "Slab · Joist H27"
+  },
+  {
+   "id": 13,
+   "sistema": "Losa",
+   "nombre": "Losa · Joist H30",
+   "planta": "Aguascalientes",
+   "unidad": "ml",
+   "p1": 1202.5,
+   "p2": 1154.4,
+   "m3": 0.03,
+   "grupo": "losa",
+   "nombre_en": "Slab · Joist H30"
+  },
+  {
+   "id": 14,
+   "sistema": "Losa",
+   "nombre": "Losa · Joist H40",
+   "planta": "Aguascalientes",
+   "unidad": "ml",
+   "p1": 1875,
+   "p2": 1800,
+   "m3": 0.04,
+   "grupo": "losa",
+   "nombre_en": "Slab · Joist H40"
+  },
+  {
+   "id": 15,
+   "sistema": "Losa",
+   "nombre": "Losa · Separador de joist",
+   "planta": "Aguascalientes",
+   "unidad": "pza",
+   "p1": 82.5,
+   "p2": 79.2,
+   "m3": 0.0005,
+   "grupo": "losa-acc",
+   "nombre_en": "Slab · Joist spacer"
+  },
+  {
+   "id": 16,
+   "sistema": "Losa",
+   "nombre": "Losa · Caja de pijas (100 pzas) para separadores",
+   "planta": "Aguascalientes",
+   "unidad": "caja",
+   "p1": 151.25,
+   "p2": 145.2,
+   "m3": 0.0005,
+   "grupo": "losa-acc",
+   "nombre_en": "Slab · Box of screws (100 pcs) for spacers"
+  },
+  {
+   "id": 17,
+   "sistema": "Losa",
+   "nombre": "Losa · FoamLite 15 cm",
+   "planta": "Aguascalientes",
+   "unidad": "pza",
+   "p1": 647.5,
+   "p2": 621.6,
+   "m3": 0.225,
+   "grupo": "losa",
+   "nombre_en": "Slab · FoamLite 15 cm"
+  },
+  {
+   "id": 18,
+   "sistema": "Losa",
+   "nombre": "Losa · FoamLite 19 cm",
+   "planta": "Aguascalientes",
+   "unidad": "pza",
+   "p1": 820,
+   "p2": 787.2,
+   "m3": 0.285,
+   "grupo": "losa",
+   "nombre_en": "Slab · FoamLite 19 cm"
+  },
+  {
+   "id": 19,
+   "sistema": "Losa",
+   "nombre": "Losa · FoamLite 25 cm",
+   "planta": "Aguascalientes",
+   "unidad": "pza",
+   "p1": 1121.25,
+   "p2": 1076.4,
+   "m3": 0.375,
+   "grupo": "losa",
+   "nombre_en": "Slab · FoamLite 25 cm"
+  },
+  {
+   "id": 20,
+   "sistema": "StrongTop",
+   "nombre": "StrongTop · Panel de losa 25 cm (2.40 × 0.60 m)",
+   "planta": "La Paz / Querétaro",
+   "unidad": "pza",
+   "p1": 793.41,
+   "p2": 761.68,
+   "m3": 0.36,
+   "grupo": "StrongTop · Panel de losa 25 cm (2.40 × 0.60 m)",
+   "nombre_en": "StrongTop · Slab panel 25 cm (2.40 × 0.60 m)"
+  },
+  {
+   "id": 21,
+   "sistema": "StrongTop-M",
+   "nombre": "Panel de losa StrongTop-M 15 cm con metal (ancho 60 cm)",
+   "planta": "Tlaxcala",
+   "unidad": "ml",
+   "p1": 307.05,
+   "p2": 294.77,
+   "m3": 0.09,
+   "grupo": "Panel de losa StrongTop-M 15 cm con metal (ancho 60 cm)",
+   "nombre_en": "Slab panel StrongTop-M 15 cm with steel (60 cm wide)"
+  },
+  {
+   "id": 22,
+   "sistema": "StrongTop-M",
+   "nombre": "Panel de losa StrongTop-M 18 cm con metal (ancho 60 cm)",
+   "planta": "Tlaxcala",
+   "unidad": "ml",
+   "p1": 388.49,
+   "p2": 372.95,
+   "m3": 0.108,
+   "grupo": "Panel de losa StrongTop-M 18 cm con metal (ancho 60 cm)",
+   "nombre_en": "Slab panel StrongTop-M 18 cm with steel (60 cm wide)"
+  },
+  {
+   "id": 23,
+   "sistema": "StrongTop-M",
+   "nombre": "Panel de losa StrongTop-M 20 cm con metal (ancho 60 cm)",
+   "planta": "Tlaxcala",
+   "unidad": "ml",
+   "p1": 410.54,
+   "p2": 394.12,
+   "m3": 0.12,
+   "grupo": "Panel de losa StrongTop-M 20 cm con metal (ancho 60 cm)",
+   "nombre_en": "Slab panel StrongTop-M 20 cm with steel (60 cm wide)"
+  },
+  {
+   "id": 24,
+   "sistema": "StrongTop-M",
+   "nombre": "Panel de losa StrongTop-M 25 cm con metal (ancho 60 cm)",
+   "planta": "Tlaxcala",
+   "unidad": "ml",
+   "p1": 466.89,
+   "p2": 448.21,
+   "m3": 0.15,
+   "grupo": "Panel de losa StrongTop-M 25 cm con metal (ancho 60 cm)",
+   "nombre_en": "Slab panel StrongTop-M 25 cm with steel (60 cm wide)"
+  },
+  {
+   "id": 25,
+   "sistema": "StrongTop-M",
+   "nombre": "Panel de losa StrongTop-M 29 cm con metal (ancho 60 cm)",
+   "planta": "Tlaxcala",
+   "unidad": "ml",
+   "p1": 521.43,
+   "p2": 500.57,
+   "m3": 0.174,
+   "grupo": "Panel de losa StrongTop-M 29 cm con metal (ancho 60 cm)",
+   "nombre_en": "Slab panel StrongTop-M 29 cm with steel (60 cm wide)"
+  },
+  {
+   "id": 26,
+   "sistema": "StrongTop-M",
+   "nombre": "Panel de losa StrongTop-M 32 cm con metal (ancho 60 cm)",
+   "planta": "Tlaxcala",
+   "unidad": "ml",
+   "p1": 529.83,
+   "p2": 508.63,
+   "m3": 0.192,
+   "grupo": "Panel de losa StrongTop-M 32 cm con metal (ancho 60 cm)",
+   "nombre_en": "Slab panel StrongTop-M 32 cm with steel (60 cm wide)"
+  },
+  {
+   "id": 27,
+   "sistema": "StrongTop-M",
+   "nombre": "Panel de losa StrongTop-M 15 cm sin metal (ancho 60 cm)",
+   "planta": "Tlaxcala",
+   "unidad": "ml",
+   "p1": 187.38,
+   "p2": 179.88,
+   "m3": 0.09,
+   "grupo": "Panel de losa StrongTop-M 15 cm sin metal (ancho 60 cm)",
+   "nombre_en": "Slab panel StrongTop-M 15 cm without steel (60 cm wide)"
+  },
+  {
+   "id": 28,
+   "sistema": "StrongTop-M",
+   "nombre": "Panel de losa StrongTop-M 20 cm sin metal (ancho 60 cm)",
+   "planta": "Tlaxcala",
+   "unidad": "ml",
+   "p1": 248.09,
+   "p2": 238.16,
+   "m3": 0.12,
+   "grupo": "Panel de losa StrongTop-M 20 cm sin metal (ancho 60 cm)",
+   "nombre_en": "Slab panel StrongTop-M 20 cm without steel (60 cm wide)"
+  }
+ ],
+ "fletes": [
+  {
+   "planta": "Aguascalientes",
+   "destino": "Oaxaca",
+   "modo": "Tercero",
+   "precio": 59000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "Playa del Carmen",
+   "modo": "Hino",
+   "precio": 98000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "Tuxtla Gutiérrez",
+   "modo": "Tercero",
+   "precio": 75000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "Naucalpan",
+   "modo": "Tercero",
+   "precio": 22000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "La Paz",
+   "modo": "Hino",
+   "precio": 125000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "Los Cabos",
+   "modo": "Hino",
+   "precio": 125000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "Mérida",
+   "modo": "Hino",
+   "precio": 98000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "Puerto Vallarta",
+   "modo": "Tercero",
+   "precio": 30000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "Monterrey",
+   "modo": "Tercero",
+   "precio": 28000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "Tulum",
+   "modo": "Hino",
+   "precio": 109000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "Veracruz",
+   "modo": "Tercero",
+   "precio": 55000
+  },
+  {
+   "planta": "Aguascalientes",
+   "destino": "Chihuahua",
+   "modo": "Hino",
+   "precio": 65000
+  },
+  {
+   "planta": "Tlaxcala",
+   "destino": "La Paz",
+   "modo": "Hino",
+   "precio": 125000
+  },
+  {
+   "planta": "Tlaxcala",
+   "destino": "Los Cabos",
+   "modo": "Hino",
+   "precio": 125000
+  },
+  {
+   "planta": "Tlaxcala",
+   "destino": "Chihuahua",
+   "modo": "Hino",
+   "precio": 65000
+  },
+  {
+   "planta": "Juárez",
+   "destino": "Tijuana",
+   "modo": "Tercero",
+   "precio": 54000
+  },
+  {
+   "planta": "Juárez",
+   "destino": "Hermosillo",
+   "modo": "Tercero",
+   "precio": 50000
+  },
+  {
+   "planta": "Juárez",
+   "destino": "Los Cabos",
+   "modo": "Hino",
+   "precio": 125000
+  },
+  {
+   "planta": "La Paz / Querétaro",
+   "destino": "Los Cabos",
+   "modo": "Entrega gratis",
+   "precio": 0
+  },
+  {
+   "planta": "La Paz / Querétaro",
+   "destino": "La Paz",
+   "modo": "Entrega gratis",
+   "precio": 0
+  }
+ ],
+ "params": {
+  "hinoM3": 86.4,
+  "terceroM3": 102,
+  "umbralM3": 172.8,
+  "iva": 0.16,
+  "ahorroHino": 0.3,
+  "minFlete": 0.25
+ }
+}
