@@ -170,13 +170,13 @@ export default function PedidoClient({ serifClass }: { serifClass: string }) {
 
         <div className="grid gap-3">
           {filas.map((f, i) => (
-            <div key={i} className="grid grid-cols-12 gap-2 items-end">
-              <label className="col-span-12 md:col-span-7 grid gap-1">
+            <div key={i} className="grid grid-cols-12 gap-2 items-end min-w-0">
+              <label className="col-span-12 md:col-span-7 grid gap-1 min-w-0">
                 <span className="text-xs text-gray-600">{t.product}</span>
                 <select
                   value={f.id}
                   onChange={(e) => setFila(i, { id: Number(e.target.value) })}
-                  className="border rounded-xl px-3 py-2 bg-white"
+                  className="border rounded-xl px-3 py-2 bg-white w-full min-w-0 truncate"
                 >
                   <option value={0}>—</option>
                   {grupos.map(([sis, ps]) => (
