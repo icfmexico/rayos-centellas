@@ -30,6 +30,18 @@ const EPS = 1e-6;
 export const round2 = (x: number) => Math.round((x + Number.EPSILON) * 100) / 100;
 
 export const productos: Producto[] = data.productos;
+/** Productos visibles al cliente (el ICF-15 "local" se aplica solo según el destino). */
+export const productosVisibles: Producto[] = data.productos.filter((p) => !p.oculto);
+
+const ICF15_LOCAL = data.productos.find((p) => p.oculto && p.nombre.startsWith("ICF-15 ·"));
+const esLocal = (destino: string) => (data.params.destinosLocales as string[]).includes(destino);
+/** Precios aplicables: ICF-15 usa precio local en Chihuahua/Juárez y precio foráneo en el resto. */
+function preciosDe(p: Producto, destino: string): { p1: number; p2: number } {
+  if (ICF15_LOCAL && p.nombre.startsWith("ICF-15 ·") && esLocal(destino)) {
+    return { p1: ICF15_LOCAL.p1, p2: ICF15_LOCAL.p2 };
+  }
+  return { p1: p.p1, p2: p.p2 };
+}
 export const destinos: string[] = Array.from(new Set(data.fletes.map((f) => f.destino))).sort((a, b) =>
   a.localeCompare(b, "es")
 );
@@ -38,8 +50,9 @@ function fleteDePlanta(planta: string, destino: string, m3: number): number | nu
   if (m3 <= 0) return 0;
   const ruta = data.fletes.find((f) => f.planta === planta && f.destino === destino);
   if (!ruta) return null;
-  const hino = ruta.modo === "Hino";
-  const precio = hino ? ruta.precio * (1 - data.params.ahorroHino) : ruta.precio;
+  const hino = ruta.modo.startsWith("Hino");
+  // El ahorro de 30% aplica a rutas "Hino"; las de "tarifa provisional" ya vienen con precio propio.
+  const precio = ruta.modo === "Hino" ? ruta.precio * (1 - data.params.ahorroHino) : ruta.precio;
   if (precio === 0) return 0; // entrega gratis
   const capacidad = hino ? data.params.hinoM3 : data.params.terceroM3;
   const camiones = m3 / capacidad;
@@ -72,7 +85,8 @@ export function computePedido(destino: string, lineasIn: PedidoLinea[]): PedidoR
 
   const out: LineaResultado[] = lineas.map((l) => {
     const tarifa = (volGrupo.get(claveGrupo(l.p)) ?? 0) >= data.params.umbralM3 ? "Volumen" : "Menudeo";
-    const unit = tarifa === "Volumen" ? l.p.p2 : l.p.p1;
+    const precios = preciosDe(l.p, destino);
+    const unit = tarifa === "Volumen" ? precios.p2 : precios.p1;
     const subtotal = round2(l.qty * unit);
     const fp = fletePlanta.get(l.p.planta);
     const mp = m3Planta.get(l.p.planta) ?? 0;

@@ -10,19 +10,21 @@
    "p2": 88,
    "m3": 0.067,
    "grupo": "ICF-15 · Block lineal — local (Juárez/Chihuahua)",
-   "nombre_en": "ICF-15 · Block straight — local (Juárez/Chihuahua)"
+   "nombre_en": "ICF-15 · Block straight — local (Juárez/Chihuahua)",
+   "oculto": true
   },
   {
    "id": 2,
    "sistema": "ICF-15",
-   "nombre": "ICF-15 · Block lineal — fuera de Chihuahua",
+   "nombre": "ICF-15 · Block lineal",
    "planta": "Juárez",
    "unidad": "pza",
    "p1": 111,
    "p2": 101,
    "m3": 0.067,
-   "grupo": "ICF-15 · Block lineal — fuera de Chihuahua",
-   "nombre_en": "ICF-15 · Block straight — outside Chihuahua"
+   "grupo": "ICF-15 · Block lineal",
+   "nombre_en": "ICF-15 · Straight block",
+   "oculto": false
   },
   {
    "id": 3,
@@ -34,7 +36,8 @@
    "p2": 101,
    "m3": 0.046,
    "grupo": "ICF-15 · Block esquina",
-   "nombre_en": "ICF-15 · Block corner"
+   "nombre_en": "ICF-15 · Corner block",
+   "oculto": false
   },
   {
    "id": 4,
@@ -46,7 +49,8 @@
    "p2": 165,
    "m3": 0.06,
    "grupo": "ICF-20 · Block 100×30×20 cm",
-   "nombre_en": "ICF-20 · Block 100×30×20 cm"
+   "nombre_en": "ICF-20 · Block 100×30×20 cm",
+   "oculto": false
   },
   {
    "id": 5,
@@ -58,7 +62,8 @@
    "p2": 346.92,
    "m3": 0.071,
    "grupo": "Block ICF-PSE 4\" lineal",
-   "nombre_en": "Block ICF-PSE 4\" straight"
+   "nombre_en": "Block ICF-PSE 4\" straight",
+   "oculto": false
   },
   {
    "id": 6,
@@ -70,7 +75,8 @@
    "p2": 274.92,
    "m3": 0.048,
    "grupo": "Block ICF-PSE 4\" esquina",
-   "nombre_en": "Block ICF-PSE 4\" corner"
+   "nombre_en": "Block ICF-PSE 4\" corner",
+   "oculto": false
   },
   {
    "id": 7,
@@ -82,7 +88,8 @@
    "p2": 364.92,
    "m3": 0.071,
    "grupo": "Block ICF-PSE 5.5\" lineal",
-   "nombre_en": "Block ICF-PSE 5.5\" straight"
+   "nombre_en": "Block ICF-PSE 5.5\" straight",
+   "oculto": false
   },
   {
    "id": 8,
@@ -94,7 +101,8 @@
    "p2": 283.92,
    "m3": 0.048,
    "grupo": "Block ICF-PSE 5.5\" esquina",
-   "nombre_en": "Block ICF-PSE 5.5\" corner"
+   "nombre_en": "Block ICF-PSE 5.5\" corner",
+   "oculto": false
   },
   {
    "id": 9,
@@ -106,7 +114,8 @@
    "p2": 412.92,
    "m3": 0.071,
    "grupo": "Block ICF-PSE 7.5\" lineal",
-   "nombre_en": "Block ICF-PSE 7.5\" straight"
+   "nombre_en": "Block ICF-PSE 7.5\" straight",
+   "oculto": false
   },
   {
    "id": 10,
@@ -118,7 +127,8 @@
    "p2": 307.92,
    "m3": 0.048,
    "grupo": "Block ICF-PSE 7.5\" esquina",
-   "nombre_en": "Block ICF-PSE 7.5\" corner"
+   "nombre_en": "Block ICF-PSE 7.5\" corner",
+   "oculto": false
   },
   {
    "id": 11,
@@ -130,7 +140,8 @@
    "p2": 628.8,
    "m3": 0.0175,
    "grupo": "losa",
-   "nombre_en": "Slab · Joist H17.5"
+   "nombre_en": "Slab · Joist H17.5",
+   "oculto": false
   },
   {
    "id": 12,
@@ -142,7 +153,8 @@
    "p2": 691.2,
    "m3": 0.027,
    "grupo": "losa",
-   "nombre_en": "Slab · Joist H27"
+   "nombre_en": "Slab · Joist H27",
+   "oculto": false
   },
   {
    "id": 13,
@@ -154,7 +166,8 @@
    "p2": 1154.4,
    "m3": 0.03,
    "grupo": "losa",
-   "nombre_en": "Slab · Joist H30"
+   "nombre_en": "Slab · Joist H30",
+   "oculto": false
   },
   {
    "id": 14,
@@ -166,7 +179,8 @@
    "p2": 1800,
    "m3": 0.04,
    "grupo": "losa",
-   "nombre_en": "Slab · Joist H40"
+   "nombre_en": "Slab · Joist H40",
+   "oculto": false
   },
   {
    "id": 15,
@@ -178,7 +192,8 @@
    "p2": 79.2,
    "m3": 0.0005,
    "grupo": "losa-acc",
-   "nombre_en": "Slab · Joist spacer"
+   "nombre_en": "Slab · Joist spacer",
+   "oculto": false
   },
   {
    "id": 16,
@@ -190,7 +205,8 @@
    "p2": 145.2,
    "m3": 0.0005,
    "grupo": "losa-acc",
-   "nombre_en": "Slab · Box of screws (100 pcs) for spacers"
+   "nombre_en": "Slab · Box of screws (100 pcs) for spacers",
+   "oculto": false
   },
   {
    "id": 17,
@@ -202,7 +218,8 @@
    "p2": 621.6,
    "m3": 0.225,
    "grupo": "losa",
-   "nombre_en": "Slab · FoamLite 15 cm"
+   "nombre_en": "Slab · FoamLite 15 cm",
+   "oculto": false
   },
   {
    "id": 18,
@@ -214,7 +231,8 @@
    "p2": 787.2,
    "m3": 0.285,
    "grupo": "losa",
-   "nombre_en": "Slab · FoamLite 19 cm"
+   "nombre_en": "Slab · FoamLite 19 cm",
+   "oculto": false
   },
   {
    "id": 19,
@@ -226,7 +244,8 @@
    "p2": 1076.4,
    "m3": 0.375,
    "grupo": "losa",
-   "nombre_en": "Slab · FoamLite 25 cm"
+   "nombre_en": "Slab · FoamLite 25 cm",
+   "oculto": false
   },
   {
    "id": 20,
@@ -238,7 +257,8 @@
    "p2": 761.68,
    "m3": 0.36,
    "grupo": "StrongTop · Panel de losa 25 cm (2.40 × 0.60 m)",
-   "nombre_en": "StrongTop · Slab panel 25 cm (2.40 × 0.60 m)"
+   "nombre_en": "StrongTop · Slab panel 25 cm (2.40 × 0.60 m)",
+   "oculto": false
   },
   {
    "id": 21,
@@ -250,7 +270,8 @@
    "p2": 294.77,
    "m3": 0.09,
    "grupo": "Panel de losa StrongTop-M 15 cm con metal (ancho 60 cm)",
-   "nombre_en": "Slab panel StrongTop-M 15 cm with steel (60 cm wide)"
+   "nombre_en": "Slab panel StrongTop-M 15 cm with steel (60 cm wide)",
+   "oculto": false
   },
   {
    "id": 22,
@@ -262,7 +283,8 @@
    "p2": 372.95,
    "m3": 0.108,
    "grupo": "Panel de losa StrongTop-M 18 cm con metal (ancho 60 cm)",
-   "nombre_en": "Slab panel StrongTop-M 18 cm with steel (60 cm wide)"
+   "nombre_en": "Slab panel StrongTop-M 18 cm with steel (60 cm wide)",
+   "oculto": false
   },
   {
    "id": 23,
@@ -274,7 +296,8 @@
    "p2": 394.12,
    "m3": 0.12,
    "grupo": "Panel de losa StrongTop-M 20 cm con metal (ancho 60 cm)",
-   "nombre_en": "Slab panel StrongTop-M 20 cm with steel (60 cm wide)"
+   "nombre_en": "Slab panel StrongTop-M 20 cm with steel (60 cm wide)",
+   "oculto": false
   },
   {
    "id": 24,
@@ -286,7 +309,8 @@
    "p2": 448.21,
    "m3": 0.15,
    "grupo": "Panel de losa StrongTop-M 25 cm con metal (ancho 60 cm)",
-   "nombre_en": "Slab panel StrongTop-M 25 cm with steel (60 cm wide)"
+   "nombre_en": "Slab panel StrongTop-M 25 cm with steel (60 cm wide)",
+   "oculto": false
   },
   {
    "id": 25,
@@ -298,7 +322,8 @@
    "p2": 500.57,
    "m3": 0.174,
    "grupo": "Panel de losa StrongTop-M 29 cm con metal (ancho 60 cm)",
-   "nombre_en": "Slab panel StrongTop-M 29 cm with steel (60 cm wide)"
+   "nombre_en": "Slab panel StrongTop-M 29 cm with steel (60 cm wide)",
+   "oculto": false
   },
   {
    "id": 26,
@@ -310,7 +335,8 @@
    "p2": 508.63,
    "m3": 0.192,
    "grupo": "Panel de losa StrongTop-M 32 cm con metal (ancho 60 cm)",
-   "nombre_en": "Slab panel StrongTop-M 32 cm with steel (60 cm wide)"
+   "nombre_en": "Slab panel StrongTop-M 32 cm with steel (60 cm wide)",
+   "oculto": false
   },
   {
    "id": 27,
@@ -322,7 +348,8 @@
    "p2": 179.88,
    "m3": 0.09,
    "grupo": "Panel de losa StrongTop-M 15 cm sin metal (ancho 60 cm)",
-   "nombre_en": "Slab panel StrongTop-M 15 cm without steel (60 cm wide)"
+   "nombre_en": "Slab panel StrongTop-M 15 cm without steel (60 cm wide)",
+   "oculto": false
   },
   {
    "id": 28,
@@ -334,7 +361,8 @@
    "p2": 238.16,
    "m3": 0.12,
    "grupo": "Panel de losa StrongTop-M 20 cm sin metal (ancho 60 cm)",
-   "nombre_en": "Slab panel StrongTop-M 20 cm without steel (60 cm wide)"
+   "nombre_en": "Slab panel StrongTop-M 20 cm without steel (60 cm wide)",
+   "oculto": false
   }
  ],
  "fletes": [
@@ -457,6 +485,12 @@
    "destino": "La Paz",
    "modo": "Entrega gratis",
    "precio": 0
+  },
+  {
+   "planta": "Juárez",
+   "destino": "Chihuahua",
+   "modo": "Hino (tarifa provisional)",
+   "precio": 16200
   }
  ],
  "params": {
@@ -465,6 +499,10 @@
   "umbralM3": 172.8,
   "iva": 0.16,
   "ahorroHino": 0.3,
-  "minFlete": 0.25
+  "minFlete": 0.25,
+  "destinosLocales": [
+   "Chihuahua",
+   "Juárez"
+  ]
  }
 }

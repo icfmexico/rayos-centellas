@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import { useParams } from "next/navigation";
-import { computePedido, destinos, productos, type Producto } from "@/lib/pedido/compute";
+import { computePedido, destinos, productosVisibles, type Producto } from "@/lib/pedido/compute";
 
 type Fila = { id: number; qty: string };
 const MAX_FILAS = 10;
@@ -31,6 +31,14 @@ const T = {
     menudeo: "Precio de menudeo",
     volumen: "Precio de volumen",
     empty: "Agrega al menos un producto con cantidad.",
+    wa: "Solicitar cotización",
+    pdf: "Descargar estimado (PDF)",
+    pdfBusy: "Generando PDF…",
+    pdfErr: "No se pudo generar el PDF. Intenta de nuevo.",
+    waHello: "Hola, quiero cotizar con ICF México:",
+    waDest: "Destino",
+    waTotal: "Total estimado con IVA",
+    waQuote: "Total por cotizar",
   },
   en: {
     title: "Delivered-to-site price estimate",
@@ -54,8 +62,17 @@ const T = {
     menudeo: "Standard price",
     volumen: "Volume price",
     empty: "Add at least one product with a quantity.",
+    wa: "Request a quote",
+    pdf: "Download estimate (PDF)",
+    pdfBusy: "Generating PDF…",
+    pdfErr: "The PDF could not be generated. Please try again.",
+    waHello: "Hello, I would like a quote from ICF México:",
+    waDest: "Destination",
+    waTotal: "Estimated total incl. VAT",
+    waQuote: "Total to be quoted",
   },
 } as const;
+const WHATSAPP = "5216143555565";
 
 const mxn = (n: number, lang: "es" | "en") =>
   new Intl.NumberFormat(lang === "es" ? "es-MX" : "en-US", { style: "currency", currency: "MXN" }).format(n);
@@ -70,7 +87,7 @@ export default function PedidoClient({ serifClass }: { serifClass: string }) {
 
   const grupos = useMemo(() => {
     const m = new Map<string, Producto[]>();
-    for (const p of productos) m.set(p.sistema, [...(m.get(p.sistema) ?? []), p]);
+    for (const p of productosVisibles) m.set(p.sistema, [...(m.get(p.sistema) ?? []), p]);
     return Array.from(m.entries());
   }, []);
 
@@ -83,6 +100,47 @@ export default function PedidoClient({ serifClass }: { serifClass: string }) {
     setFilas((fs) => fs.map((f, k) => (k === i ? { ...f, ...patch } : f)));
   const nombre = (p: Producto) => (lang === "en" ? p.nombre_en : p.nombre);
   const tieneLineas = res.lineas.length > 0;
+  const [pdfBusy, setPdfBusy] = useState(false);
+  const [pdfError, setPdfError] = useState(false);
+
+  const waHref = useMemo(() => {
+    const lines = res.lineas.map(
+      (l) => `• ${l.qty.toLocaleString(lang === "es" ? "es-MX" : "en-US")} × ${nombre(l.producto)}`
+    );
+    const cierre = res.total === null ? t.waQuote : `${t.waTotal}: ${mxn(res.total, lang)}`;
+    const msg = [t.waHello, "", ...lines, "", `${t.waDest}: ${destino === "__otro__" ? "—" : destino}`, cierre].join("\n");
+    return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [res, destino, lang]);
+
+  async function descargarPdf() {
+    setPdfBusy(true);
+    setPdfError(false);
+    try {
+      const r = await fetch("/api/pdf/pedido", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          lang,
+          destino,
+          lineas: filas.filter((f) => f.id > 0).map((f) => ({ id: f.id, qty: Number(f.qty) })),
+        }),
+      });
+      if (!r.ok) throw new Error("pdf");
+      const url = URL.createObjectURL(await r.blob());
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "ICF-Mexico-Estimado.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      setPdfError(true);
+    } finally {
+      setPdfBusy(false);
+    }
+  }
 
   return (
     <main className="min-h-dvh bg-white text-gray-900">
@@ -209,6 +267,29 @@ export default function PedidoClient({ serifClass }: { serifClass: string }) {
                   </dd>
                 </dl>
               )}
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                <a
+                  href={waHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl px-4 py-2 text-sm text-white"
+                  style={{ background: BLUE }}
+                >
+                  {t.wa}
+                </a>
+                {destino !== "__otro__" && (
+                  <button
+                    type="button"
+                    onClick={descargarPdf}
+                    disabled={pdfBusy}
+                    className="rounded-xl px-4 py-2 text-sm border bg-white"
+                  >
+                    {pdfBusy ? t.pdfBusy : t.pdf}
+                  </button>
+                )}
+              </div>
+              {pdfError && <p className="mt-2 text-xs text-red-700">{t.pdfErr}</p>}
 
               <p className="mt-4 text-xs italic text-gray-600">
                 {res.porCotizar || destino === "__otro__" ? t.needQuote : t.includes(destino)}
