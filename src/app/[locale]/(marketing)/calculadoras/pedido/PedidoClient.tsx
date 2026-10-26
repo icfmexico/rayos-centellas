@@ -3,7 +3,29 @@ import { useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import { computePedido, destinos, productosVisibles, type Producto } from "@/lib/pedido/compute";
 
-type Fila = { id: number; qty: string };
+type Fila = { id: number; qty: string; m2: string };
+
+// Rendimiento por m² (dato oficial de cada sistema). Solo piezas lineales / metros lineales; esquinas y accesorios se cuantifican aparte.
+const POR_M2: Record<number, { f: number; kind: "muro" | "losa"; unit: "pza" | "ml" }> = {
+  2: { f: 2.73, kind: "muro", unit: "pza" }, // ICF-15 lineal (122 × 30 cm)
+  4: { f: 3.33, kind: "muro", unit: "pza" }, // ICF-20 (100 × 30 cm)
+  5: { f: 2.02, kind: "muro", unit: "pza" }, // ICF-PSE 48" × 16"
+  7: { f: 2.02, kind: "muro", unit: "pza" },
+  9: { f: 2.02, kind: "muro", unit: "pza" },
+  11: { f: 1 / 0.6, kind: "losa", unit: "ml" }, // joist cada 60 cm
+  12: { f: 1 / 0.6, kind: "losa", unit: "ml" },
+  13: { f: 1 / 0.6, kind: "losa", unit: "ml" },
+  14: { f: 1 / 0.6, kind: "losa", unit: "ml" },
+  20: { f: 1 / (2.4 * 0.6), kind: "losa", unit: "pza" }, // StrongTop 2.40 × 0.60 m
+  21: { f: 1 / 0.6, kind: "losa", unit: "ml" }, // StrongTop-M ancho 60 cm
+  22: { f: 1 / 0.6, kind: "losa", unit: "ml" },
+  23: { f: 1 / 0.6, kind: "losa", unit: "ml" },
+  24: { f: 1 / 0.6, kind: "losa", unit: "ml" },
+  25: { f: 1 / 0.6, kind: "losa", unit: "ml" },
+  26: { f: 1 / 0.6, kind: "losa", unit: "ml" },
+  27: { f: 1 / 0.6, kind: "losa", unit: "ml" },
+  28: { f: 1 / 0.6, kind: "losa", unit: "ml" },
+};
 const MAX_FILAS = 10;
 const BLUE = "#003A70";
 
@@ -28,6 +50,10 @@ const T = {
     needQuote:
       "Hay productos con flete por cotizar para este destino. Te respondemos en el menor tiempo posible.",
     condition: "Condición",
+    byM2: (k: string) => (k === "muro" ? "¿No sabes cuántas piezas? Ingresa los m² de muro:" : "¿No sabes cuántas piezas? Ingresa los m² de losa:"),
+    approx: (n: string, u: string) => `≈ ${n} ${u === "ml" ? "metros lineales" : "piezas"}`,
+    m2note:
+      "Estimación comercial por m²: no descuenta ventanas ni puertas y las esquinas se cuantifican por separado. La cuantificación final se hace antes del suministro.",
     menudeo: "Precio de menudeo",
     volumen: "Precio de volumen",
     empty: "Agrega al menos un producto con cantidad.",
@@ -59,6 +85,10 @@ const T = {
     includes: (d: string) => `Prices delivered to ${d}, in MXN. Validity subject to confirmation.`,
     needQuote: "Some products need a freight quote for this destination. We will reply as soon as possible.",
     condition: "Pricing",
+    byM2: (k: string) => (k === "muro" ? "Not sure how many pieces? Enter the wall m²:" : "Not sure how many pieces? Enter the slab m²:"),
+    approx: (n: string, u: string) => `≈ ${n} ${u === "ml" ? "linear meters" : "pieces"}`,
+    m2note:
+      "Commercial m² estimate: it does not deduct windows or doors, and corners are counted separately. The final take-off is done before supply.",
     menudeo: "Standard price",
     volumen: "Volume price",
     empty: "Add at least one product with a quantity.",
@@ -83,7 +113,7 @@ export default function PedidoClient({ serifClass }: { serifClass: string }) {
   const t = T[lang];
 
   const [destino, setDestino] = useState("");
-  const [filas, setFilas] = useState<Fila[]>([{ id: 0, qty: "" }]);
+  const [filas, setFilas] = useState<Fila[]>([{ id: 0, qty: "", m2: "" }]);
 
   const grupos = useMemo(() => {
     const m = new Map<string, Producto[]>();
@@ -175,7 +205,7 @@ export default function PedidoClient({ serifClass }: { serifClass: string }) {
                 <span className="text-xs text-gray-600">{t.product}</span>
                 <select
                   value={f.id}
-                  onChange={(e) => setFila(i, { id: Number(e.target.value) })}
+                  onChange={(e) => setFila(i, { id: Number(e.target.value), m2: "" })}
                   className="border rounded-xl px-3 py-2 bg-white w-full min-w-0 truncate"
                 >
                   <option value={0}>—</option>
@@ -194,7 +224,7 @@ export default function PedidoClient({ serifClass }: { serifClass: string }) {
                 <span className="text-xs text-gray-600">{t.qty}</span>
                 <input
                   value={f.qty}
-                  onChange={(e) => setFila(i, { qty: e.target.value.replace(/[^0-9.]/g, "") })}
+                  onChange={(e) => setFila(i, { qty: e.target.value.replace(/[^0-9.]/g, ""), m2: "" })}
                   inputMode="decimal"
                   className="border rounded-xl px-3 py-2 w-full min-w-0"
                   placeholder="0"
@@ -202,11 +232,32 @@ export default function PedidoClient({ serifClass }: { serifClass: string }) {
               </label>
               <button
                 type="button"
-                onClick={() => setFilas((fs) => (fs.length > 1 ? fs.filter((_, k) => k !== i) : [{ id: 0, qty: "" }]))}
+                onClick={() => setFilas((fs) => (fs.length > 1 ? fs.filter((_, k) => k !== i) : [{ id: 0, qty: "", m2: "" }]))}
                 className="col-span-4 md:col-span-2 border rounded-xl px-3 py-2 text-sm bg-white"
               >
                 {t.remove}
               </button>
+              {POR_M2[f.id] && (
+                <label className="col-span-12 flex flex-wrap items-center gap-2 text-xs text-gray-600">
+                  <span>{t.byM2(POR_M2[f.id].kind)}</span>
+                  <input
+                    value={f.m2}
+                    onChange={(e) => {
+                      const m2 = e.target.value.replace(/[^0-9.]/g, "");
+                      const n = Math.ceil(Number(m2) * POR_M2[f.id].f);
+                      setFila(i, { m2, qty: m2 && n > 0 ? String(n) : "" });
+                    }}
+                    inputMode="decimal"
+                    placeholder="m²"
+                    className="border rounded-xl px-3 py-1 w-28 bg-white text-sm"
+                  />
+                  {f.m2 && Number(f.m2) > 0 && (
+                    <span style={{ color: BLUE }}>
+                      {t.approx(Math.ceil(Number(f.m2) * POR_M2[f.id].f).toLocaleString(lang === "es" ? "es-MX" : "en-US"), POR_M2[f.id].unit)}
+                    </span>
+                  )}
+                </label>
+              )}
             </div>
           ))}
         </div>
@@ -214,13 +265,14 @@ export default function PedidoClient({ serifClass }: { serifClass: string }) {
         {filas.length < MAX_FILAS && (
           <button
             type="button"
-            onClick={() => setFilas((fs) => [...fs, { id: 0, qty: "" }])}
+            onClick={() => setFilas((fs) => [...fs, { id: 0, qty: "", m2: "" }])}
             className="mt-3 rounded-xl px-4 py-2 text-sm text-white"
             style={{ background: BLUE }}
           >
             + {t.add}
           </button>
         )}
+        {filas.some((f) => f.m2) && <p className="mt-3 text-xs italic text-gray-600">{t.m2note}</p>}
 
         <div className="mt-10 rounded-2xl border p-5" style={{ borderColor: "#d7dde5" }}>
           {!destino || !tieneLineas ? (
