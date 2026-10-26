@@ -497,6 +497,30 @@
       "destino": "Chihuahua",
       "modo": "Hino (tarifa provisional)",
       "precio": 16200
+    },
+    {
+      "planta": "Juárez",
+      "destino": "Tuxtla Gutiérrez",
+      "modo": "Hino (tarifa provisional)",
+      "precio": 59600
+    },
+    {
+      "planta": "Juárez",
+      "destino": "Mérida",
+      "modo": "Hino (tarifa provisional)",
+      "precio": 69700
+    },
+    {
+      "planta": "Juárez",
+      "destino": "Playa del Carmen",
+      "modo": "Hino (tarifa provisional)",
+      "precio": 74800
+    },
+    {
+      "planta": "Juárez",
+      "destino": "Tulum",
+      "modo": "Hino (tarifa provisional)",
+      "precio": 75800
     }
   ],
   "params": {
