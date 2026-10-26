@@ -50,6 +50,7 @@ const T = {
     needQuote:
       "Hay productos con flete por cotizar para este destino. Te respondemos en el menor tiempo posible.",
     condition: "Condición",
+    needDest: "Selecciona un destino para ver tu estimado.",
     byM2: (k: string) => (k === "muro" ? "¿No sabes cuántas piezas? Ingresa los m² de muro:" : "¿No sabes cuántas piezas? Ingresa los m² de losa:"),
     approx: (n: string, u: string) => `≈ ${n} ${u === "ml" ? "metros lineales" : "piezas"}`,
     m2note:
@@ -85,6 +86,7 @@ const T = {
     includes: (d: string) => `Prices delivered to ${d}, in MXN. Validity subject to confirmation.`,
     needQuote: "Some products need a freight quote for this destination. We will reply as soon as possible.",
     condition: "Pricing",
+    needDest: "Select a destination to see your estimate.",
     byM2: (k: string) => (k === "muro" ? "Not sure how many pieces? Enter the wall m²:" : "Not sure how many pieces? Enter the slab m²:"),
     approx: (n: string, u: string) => `≈ ${n} ${u === "ml" ? "linear meters" : "pieces"}`,
     m2note:
@@ -276,7 +278,7 @@ export default function PedidoClient({ serifClass }: { serifClass: string }) {
 
         <div className="mt-10 rounded-2xl border p-5" style={{ borderColor: "#d7dde5" }}>
           {!destino || !tieneLineas ? (
-            <p className="text-sm text-gray-600">{t.empty}</p>
+            <p className="text-sm text-gray-600">{!destino ? t.needDest : t.empty}</p>
           ) : (
             <>
               <div className="overflow-x-auto">
